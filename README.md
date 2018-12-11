@@ -1,5 +1,5 @@
 ### Framgia git standard
-Tham khảo [Framgia Git Flow](https://github.com/framgia/coding-standards/blob/master/vn/git/flow.md), [standard-version](https://github.com/conventional-changelog/standard-version)
+Tham khảo [Framgia Git Flow](https://github.com/framgia/coding-standards/blob/master/vn/git/flow.md), [standard-version](https://github.com/conventional-changelog/standard-version), [conventional-changelog-cli](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-cli)
 
 ## Mục đích của tài liệu
 - Quy chuẩn đặt tên đồng nhất của các dự án.
@@ -14,10 +14,6 @@ Tham khảo [Framgia Git Flow](https://github.com/framgia/coding-standards/blob/
 - Đối với tính năng mới: `feature/#issue_id-ten-nhanh (ví dụ: `feature/#2-create-readme-file`)
 - Đối với bug: `fix/#issue_id-ten-nhanh` (ví dụ: `fix/#3-login-with-facebook`)
 
-*Đối với dự án quản lý issue trên redmine:*
-
-*Đối với dự án quản lý issue trên backlog, ....*
-
 ## Nguyên tắc đặt tên commit
 Nguyên tắc đặt tên commit sẽ đóng vai trò quyết định nội dung trong file CHANGLOG.md sẽ được tạo ra
 
@@ -26,13 +22,10 @@ Nguyên tắc đặt tên commit sẽ đóng vai trò quyết định nội dung
 *Tính năng mới:*
 
 - `feat: nội dung commit` (ví dụ: `feat: user management`)
-
-*Tính năng mới có thêm scope:*
-
 - `feat(scope): nội dung commit` (ví dụ: `feat(lang): added vietnamese language`)
 
 *Bug:*
-
+- `fix: nội dung commit` (ví dụ: fix: spelling correction)
 - `fix(scope): nội dung commit` (ví dụ: `fix(login): can not login with facebook`)
 
 *Có tính năng hoặc sự thay đổi lớn nào đó:*
@@ -41,17 +34,63 @@ Nguyên tắc đặt tên commit sẽ đóng vai trò quyết định nội dung
   feat(scope) nội dung commit
   BREAKING CHANGE: thông tin thay đổi
   ```
+  Ví dụ:
+  ```
+  feat: renew ux/ui
+  BREAKING CHANGE: New user interface
+  ```
 
 *Trường hợp khác*
 
 - `docs: nội dung commit` (ví dụ: `docs: hot fix readme`)
 
-## Pull request rules
-- Cách đặt tên, mô tả phù hợp theo lừng công cụ quản lý ticket (github, backlog, redmine,...)
-- Ví dụ
+## Nguyên tắc đặt tên version (tag)
+Các dự án cần release đặt tên version theo format: `vx.y.z` bắt đầu từ `v1.0.0`
 
-## Version (tag) rules
-- Cách đặt tên, cách lên version
-- Ví dụ
+**Quy tắc tăng version**
+1. Trường hợp chỉ có sửa lỗi => z tăng thêm 1
+
+*Ví dụ:*
+
+Nội dung của các commit trong version mới:
+```
+fix(login): can not login with facebook
+fix: spelling correction
+```
+version được tăng từ `v1.0.0` lên `v1.0.1`
+
+2. Trường hợp sửa lỗi và có những tính năng nhỏ => y tăng thêm 1, z trở về 0
+
+*Ví dụ*
+
+Nội dung các commit trong version mới:
+```
+fix(login): can not login with facebook
+feat(login): login with twitter
+fix: spelling correction
+```
+version được tăng từ `v1.0.1` lên `v1.1.0`
+
+3. Trường hợp có một thay đổi lớn (BREAKING CHANGE) => x tăng thêm 1, y và z trở về 0
+
+*Ví dụ*
+```
+fix: spelling correction
+feat: change icon on head title
+feat: renew ux/ui
+BREAKING CHANGE: New user interface
+```
+version được tăng từ `v1.1.0` lên `v2.0.0`
 
 ## Hướng dẫn sử dụng tools tạo changelog
+
+Cài đặt tools qua câu lệnh:
+```
+npm install -g conventional-changelog-cli
+```
+
+Tại thư mục dự án muốn tạo changelog chạy câu lệnh:
+```
+conventional-changelog -p angular -i CHANGELOG.md -s -r 0
+```
+sau đó file CHANGELOG.md được tạo ra theo các commit và version hiện tại của dự án.
