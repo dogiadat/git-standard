@@ -44,7 +44,8 @@ Nguyên tắc đặt tên commit sẽ đóng vai trò quyết định nội dung
 
 - `docs: nội dung commit` (ví dụ: `docs: hot fix readme`)
 
-## Nguyên tắc đặt tên version (tag)
+## Releases
+### Release thủ công
 Các dự án cần release đặt tên version theo format: `vx.y.z` bắt đầu từ `v1.0.0`
 
 **Quy tắc tăng version**
@@ -82,7 +83,7 @@ BREAKING CHANGE: New user interface
 ```
 version được tăng từ `v1.1.0` lên `v2.0.0`
 
-## Hướng dẫn sử dụng tools tạo changelog
+**Hướng dẫn sử dụng tools tạo changelog**
 
 Cài đặt tools qua câu lệnh:
 ```
@@ -94,3 +95,25 @@ Tại thư mục dự án muốn tạo changelog chạy câu lệnh:
 conventional-changelog -p angular -i CHANGELOG.md -s -r 0
 ```
 sau đó file CHANGELOG.md được tạo ra theo các commit và version hiện tại của dự án.
+
+### Sử dụng công cụ hỗ trợ release
+
+*Cài đặt công cụ qua câu lệnh*
+```
+npm i -g standard-version
+```
+*Chạy lệnh sau để release version mới*
+```
+standard-version
+```
+
+*Chú ý:* Công cụ sẽ tự động đặt tên version dựa vào nội dung commit của version sắp release.
+Nguyên tắc tăng version giống với [release thủ công](#release-thủ-công)
+
+*Một số options:*
+- `release-as`: chỉ định rõ tên của version tiếp theo (ví dụ: `standard-version --release-as 1.1.0` => version được tạo có tên `v1.1.0`)
+- `prerelease`: tạo một bản prerelease (ví dụ: `standard-version --prerelease` => bạn sẽ tạo ra version dạng `1.0.1-0`
+- `--no-verify`: bỏ qua git hooks
+
+
+Chi tiết: `standard-version --help`
